@@ -8,6 +8,7 @@
   ],
   "jsRules": {},
   "rules": {
+    "quotemark": [true, "single"],
     "curly": false,
     "function-name": false,
     "import-name": false,
@@ -29,8 +30,7 @@
       "allow-pascal-case",
       "ban-keywords",
       "check-format"
-    ],
-    "quotemark": false
+    ]
   },
   "rulesDirectory": []
 }
