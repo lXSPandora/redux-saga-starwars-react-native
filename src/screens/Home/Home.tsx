@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
-import { FlatList, Text, ActivityIndicator, Dimensions, View } from 'react-native'
+import { FlatList, Text, ActivityIndicator, Dimensions, View, TouchableOpacity } from 'react-native'
 import styled from 'styled-components/native';
 import { connect } from 'react-redux';
 
 import { getCharacters } from '../../actions/characters'
 import Header from '../common/Header'
+import { images } from '../../images/index';
 import { StarWarsConnection, Character } from '../../sagas/characters';
 
 const { width } = Dimensions.get('window')
@@ -62,6 +63,28 @@ const Initals = styled.Text`
   background-color: transparent;
 `;
 
+const NoNet = styled.Image.attrs({
+  source: images.noNet
+})`
+  width: 200;
+  height: 97.93;
+`;
+
+const NoNetText = styled.Text`
+  font-size: 20px;
+  color: #c0c0c0;
+  font-weight: 500;
+  padding-top: 30;
+  color: rgb(36,67,86);
+  width: 200;
+  text-align: center;
+`;
+
+const Button = styled.TouchableOpacity`
+  align-items: center;
+  justify-content: center;
+`
+
 interface Props {
   getCharacters: () => void,
   characters: StarWarsConnection<Character>,
@@ -81,7 +104,6 @@ const Types = {
 class Home extends Component<Props> {
   componentDidMount() {
     this.props.getCharacters();
-    return null;
   }
 
   getInitials = (name: string) => {
@@ -126,7 +148,10 @@ class Home extends Component<Props> {
         <Screen>
           {this.renderHeader()}
           <Wrapper>
-            <Text>{error}</Text>
+            <Button onPress={() => this.props.getCharacters()}>
+              <NoNet />
+              <NoNetText>Oops! It looks like you are offline Touch me to retry</NoNetText> 
+            </Button>
           </Wrapper>
         </Screen>
       )
